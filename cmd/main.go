@@ -3,9 +3,9 @@ package main
 import (
 	"os"
 
-	"github.com/Fredy-bambang/sawit-pro-be-user-service/generated"
-	"github.com/Fredy-bambang/sawit-pro-be-user-service/handler"
-	"github.com/Fredy-bambang/sawit-pro-be-user-service/repository"
+	"github.com/fredy-bambang/sawit-pro-be-user-service/generated"
+	"github.com/fredy-bambang/sawit-pro-be-user-service/handler"
+	"github.com/fredy-bambang/sawit-pro-be-user-service/repository"
 
 	"github.com/labstack/echo/v4"
 )

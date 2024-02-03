@@ -1,6 +1,6 @@
 package handler
 
-import "github.com/Fredy-bambang/sawit-pro-be-user-service/repository"
+import "github.com/fredy-bambang/sawit-pro-be-user-service/repository"
 
 type Server struct {
 	Repository repository.RepositoryInterface

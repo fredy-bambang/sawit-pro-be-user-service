@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Fredy-bambang/sawit-pro-be-user-service/generated"
+	"github.com/fredy-bambang/sawit-pro-be-user-service/generated"
 	"github.com/labstack/echo/v4"
 )
 
