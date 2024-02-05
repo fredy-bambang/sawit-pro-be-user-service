@@ -1,0 +1,19 @@
+podman issue on docker build: 
+https://github.com/containers/podman/issues/13468
+
+missing executor go bin
+export PATH=$PATH:$(go env GOPATH)/bin
+
+makefile gen for oapi-codegen have wrong script. it should be 
+oapi-codegen --package generated -generate types,server,spec api.yml > generated/api.gen.go
+
+got error vendor/github.com/getkin/kin-openapi/openapi3/schema_pattern.go:27:32: compiledPatterns.CompareAndSwap undefined (type sync.Map has no field or method CompareAndSwap)
+note: module requires Go 1.20
+solution will change to go 1.20 from 1.19
+
+existing database.sql have wrong syntax. 
+CREATE TABLE test (
+	id serial PRIMARY KEY,
+	name VARCHAR ( 50 ) UNIQUE NOT NULL, -> need remove the comma
+);
+

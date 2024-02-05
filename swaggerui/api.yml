@@ -1,0 +1,242 @@
+# This is the OpenAPI specification for your service. It is used to generate the client code.
+# To generate the server code, use the Gradle task `openApiGenerate`. The
+# generated code will be placed in `build/generate-resources/main`.
+#
+# We will evaluate you based on how well you design your API.
+# 1. How well it follows REST principles.
+# 2. How easy it is to understand and use.
+#
+# References
+# 1. https://swagger.io/specification/
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: User Service
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:8080
+paths:
+  /register:
+    post:
+      summary: Register new user
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+      responses:
+        "201":
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegisterResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  # login accept phone and password, return jwt with algorithm rs256, and increment number of successfull login, return 400 when fail login
+  /login:
+    post:
+      summary: Login user
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: User logged in
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  # get profile accept token as auth header, success will return user name and phone number, otherwise return 403
+  /profile:
+    get:
+      summary: Get user profile
+      operationId: profile
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: User profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProfileResponse"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      summary: Update user profile
+      operationId: updateProfile
+      parameters:
+        - name: id
+          in: header
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateProfileRequest"
+      responses:
+        "200":
+          description: User profile updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateProfileResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    RegisterRequest:
+      type: object
+      required:
+        - phone
+        - fullname
+        - password
+      properties:
+        phone:
+          type: string
+          example: "+6281123456789"
+          x-oapi-codegen-extra-tags:
+            validate: required,min=10
+        fullname:
+          type: string
+          example: "John Doe"
+          x-oapi-codegen-extra-tags:
+            validate: required
+        password:
+          type: string
+          example: "A1234*"
+          x-oapi-codegen-extra-tags:
+            validate: "required,min=6,max=64"
+    RegisterResponse:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 1
+    LoginRequest:
+      type: object
+      required:
+        - phone
+        - password
+      properties:
+        phone:
+          type: string
+          example: "+6281123456789"
+          x-oapi-codegen-extra-tags:
+            validate: required,min=10
+        password:
+          type: string
+          x-oapi-codegen-extra-tags:
+            validate: required
+    LoginResponse:
+      type: object
+      required:
+        - id
+        - token
+      properties:
+        token:
+          type: string
+        id:
+          type: integer
+    ProfileResponse:
+      type: object
+      required:
+        - phone
+        - fullname
+      properties:
+        phone:
+          type: string
+        fullname:
+          type: string
+    UpdateProfileRequest:
+      type: object
+      required:
+        - phone
+        - fullname
+      properties:
+        phone:
+          type: string
+          example: "+6281123456789"
+          x-oapi-codegen-extra-tags:
+            validate: required
+        fullname:
+          type: string
+          example: "John Doe"
+          x-oapi-codegen-extra-tags:
+            validate: omitempty
+    UpdateProfileResponse:
+      type: object
+      required:
+        - phone
+        - fullname
+      properties:
+        phone:
+          type: string
+          example: "+6281123456789"
+          x-oapi-codegen-extra-tags:
+            validate: required,min=10
+        fullname:
+          type: string
+          x-oapi-codegen-extra-tags:
+            validate: required
+    HelloResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+    ErrorResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string

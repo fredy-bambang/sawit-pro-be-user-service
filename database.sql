@@ -8,10 +8,11 @@
   */
 
 /** This is test table. Remove this table and replace with your own tables. */
-CREATE TABLE test (
-	id serial PRIMARY KEY,
-	name VARCHAR ( 50 ) UNIQUE NOT NULL,
+CREATE TABLE users (
+  id serial PRIMARY KEY,
+  phone_number VARCHAR ( 15 ) UNIQUE NOT NULL,
+  fullname VARCHAR ( 60 ) NOT NULL,
+  password VARCHAR ( 64 ) NOT NULL,
+  salt_token VARCHAR ( 100 ) NOT NULL,
+  created_at timestamp default current_timestamp NOT NULL
 );
-
-INSERT INTO test (name) VALUES ('test1');
-INSERT INTO test (name) VALUES ('test2');

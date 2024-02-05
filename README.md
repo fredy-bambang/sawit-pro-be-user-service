@@ -52,3 +52,21 @@ To run test, run the following command:
 ```
 make test
 ```
+
+## Swagger UI
+
+to generate the swagger ui run, 
+Run statik before run docker build
+
+```
+cp api.yml statik -src=./swaggerui
+```
+
+## Notes
+
+i utilize this command for generate types and use it.
+
+```
+oapi-codegen --package generated -generate types api.yml > generated/types.gen.go
+```
+The code should follow my git path, but i don't change it since the docker run's well on the local after some reseach and fixing. 
