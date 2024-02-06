@@ -1,7 +1,7 @@
 podman issue on docker build: 
 https://github.com/containers/podman/issues/13468
 
-missing executor go bin
+missing executor go bin, need manually export
 export PATH=$PATH:$(go env GOPATH)/bin
 
 makefile gen for oapi-codegen have wrong script. it should be 

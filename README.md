@@ -56,11 +56,18 @@ make test
 ## Swagger UI
 
 to generate the swagger ui run, 
-Run statik before run docker build
+for reference of statik can check here https://github.com/rakyll/statik
 
 ```
 cp api.yml statik -src=./swaggerui
 ```
+
+## Mockery
+for mock repository use mockery, go to repository folder and execute 
+```
+mockery --name UserRepository
+```
+it will create mocks folder with UserRepository.go file inside
 
 ## Notes
 
@@ -70,3 +77,4 @@ i utilize this command for generate types and use it.
 oapi-codegen --package generated -generate types api.yml > generated/types.gen.go
 ```
 The code should follow my git path, but i don't change it since the docker run's well on the local after some reseach and fixing. 
+
